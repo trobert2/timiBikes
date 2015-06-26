@@ -6,15 +6,15 @@ package com.example.robert.timibikes;
 public class Station {
    public String StationName;
    public String Address;
-   public String OcuppiedSpots;
+   public String OccupiedSpots;
    public String EmptySpots;
    public String MaximumNumberOfBikes;
    public String Status;
 
-    public Station(String StationName, String Address, String OcuppiedSpots, String EmptySpots, String MaximumNumberOfBikes, String Status) {
+    public Station(String StationName, String Address, String OccupiedSpots, String EmptySpots, String MaximumNumberOfBikes, String Status) {
         this.StationName = StationName;
         this.Address = Address;
-        this.OcuppiedSpots = OcuppiedSpots;
+        this.OccupiedSpots = OccupiedSpots;
         this.EmptySpots = EmptySpots;
         this.MaximumNumberOfBikes = MaximumNumberOfBikes;
         this.Status = Status;
