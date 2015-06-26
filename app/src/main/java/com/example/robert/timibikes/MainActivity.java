@@ -1,17 +1,13 @@
 package com.example.robert.timibikes;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -24,19 +20,34 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 
 public class MainActivity extends ActionBarActivity {
+    public ArrayList<Station> stations = new ArrayList<Station>();
+    public ListView listView;
+    public TextView textView;
+    public StationsAdapter adapter;
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.UK);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new LoadMainActivity().execute();
         setContentView(R.layout.activity_main);
-}
+        adapter = new StationsAdapter(MainActivity.this, stations);
+        listView = (ListView) findViewById(R.id.FirstListView);
+        textView = (TextView) findViewById(R.id.FirstView);
+
+        listView.setAdapter(adapter);
+
+        new LoadMainActivity().execute();
+
+    }
 
 
     @Override
@@ -66,8 +77,14 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private class LoadMainActivity extends AsyncTask<String,String,String> {
-        ArrayList<Station> stations = new ArrayList<Station>();
         StringBuilder response  = new StringBuilder();
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Toast.makeText(MainActivity.this, "Updating...", Toast.LENGTH_SHORT).show();
+            stations.clear();
+        }
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -95,22 +112,11 @@ public class MainActivity extends ActionBarActivity {
                 writer.close();
                 reader.close();
                 conn.connect();
-
             }
             catch (Exception e)
             {
                 e.printStackTrace();
             }
-
-
-            return response.toString();
-
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            // TODO Auto-generated method stub
-            super.onPostExecute(result);
             try{
                 JsonParser parser = new JsonParser();
                 JsonObject o = (JsonObject)parser.parse(response.toString());
@@ -118,24 +124,29 @@ public class MainActivity extends ActionBarActivity {
                 for (JsonElement record:o.getAsJsonArray("Data")) {
 
                     Station station = new Station(((JsonObject) record).get("StationName").toString(),
-                                                  ((JsonObject) record).get("Address").toString(),
-                                                  ((JsonObject) record).get("OcuppiedSpots").toString(),
-                                                  ((JsonObject) record).get("EmptySpots").toString(),
-                                                  ((JsonObject) record).get("MaximumNumberOfBikes").toString(),
-                                                  ((JsonObject) record).get("StatusType").toString());
-
+                            ((JsonObject) record).get("Address").toString(),
+                            ((JsonObject) record).get("OcuppiedSpots").toString(),
+                            ((JsonObject) record).get("EmptySpots").toString(),
+                            ((JsonObject) record).get("MaximumNumberOfBikes").toString(),
+                            ((JsonObject) record).get("StatusType").toString());
 
                     stations.add(station);
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-                TextView t  = (TextView) findViewById(R.id.FirstView);
-                t.setText("Station info");
+            return response.toString();
+        }
 
-                ListView l = (ListView) findViewById(R.id.FirstListView);
-                StationsAdapter adapter = new StationsAdapter(MainActivity.this, stations);
-                l.setAdapter(adapter);
+        @Override
+        protected void onPostExecute(String result) {
+            // TODO Auto-generated method stub
+            super.onPostExecute(result);
+            textView.setText(getString(R.string.last_updated) + simpleDateFormat.format(new Date()));
 
-            } catch (Exception e){e.printStackTrace();}
+            adapter.notifyDataSetChanged();
+            Toast.makeText(MainActivity.this, "Updated", Toast.LENGTH_LONG).show();
         }
 
         private String getQuery(Map<String, String> map)  throws UnsupportedEncodingException
