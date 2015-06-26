@@ -1,8 +1,5 @@
 package com.example.robert.timibikes;
 
-import android.content.Context;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -25,6 +22,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -36,6 +34,8 @@ public class MainActivity extends ActionBarActivity {
     public ListView listView;
     public TextView textView;
     public StationsAdapter adapter;
+    public GPSTracker gps;
+
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.UK);
 
     @Override
@@ -45,9 +45,9 @@ public class MainActivity extends ActionBarActivity {
         adapter = new StationsAdapter(MainActivity.this, stations);
         listView = (ListView) findViewById(R.id.FirstListView);
         textView = (TextView) findViewById(R.id.FirstView);
+        gps = new GPSTracker(this);
 
         listView.setAdapter(adapter);
-//        GPSTracker gps = new GPSTracker(this);
         new LoadMainActivity().execute();
     }
 
@@ -70,6 +70,16 @@ public class MainActivity extends ActionBarActivity {
             case R.id.action_update:
                 new LoadMainActivity().execute();
                 break;
+            case R.id.action_alphabetical_order:
+                Collections.sort(stations, new StationAlphabeticalComparator());
+                adapter.notifyDataSetChanged();
+                break;
+            case R.id.action_location_order:
+                double myLatitude = gps.getLatitude();
+                double myLongitude = gps.getLongitude();
+                Collections.sort(stations, new StationLocationComparator(myLatitude, myLongitude));
+                adapter.notifyDataSetChanged();
+
             default:
                 return true;
         }
@@ -129,7 +139,9 @@ public class MainActivity extends ActionBarActivity {
                             ((JsonObject) record).get("OcuppiedSpots").toString(),
                             ((JsonObject) record).get("EmptySpots").toString(),
                             ((JsonObject) record).get("MaximumNumberOfBikes").toString(),
-                            ((JsonObject) record).get("StatusType").toString());
+                            ((JsonObject) record).get("StatusType").toString(),
+                            Double.parseDouble(((JsonObject) record).get("Longitude").toString()),
+                            Double.parseDouble(((JsonObject) record).get("Latitude").toString()));
 
                     stations.add(station);
                 }
