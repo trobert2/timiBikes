@@ -1,5 +1,8 @@
 package com.example.robert.timibikes;
 
+import android.content.Context;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -44,11 +47,9 @@ public class MainActivity extends ActionBarActivity {
         textView = (TextView) findViewById(R.id.FirstView);
 
         listView.setAdapter(adapter);
-
+//        GPSTracker gps = new GPSTracker(this);
         new LoadMainActivity().execute();
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
