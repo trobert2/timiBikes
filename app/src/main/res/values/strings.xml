@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">timiBikes</string>
+
+    <string name="loading">Loading info....</string>
+    <string name="action_settings">Settings</string>
+</resources>
