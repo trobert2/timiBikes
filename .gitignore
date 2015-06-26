@@ -1,6 +1,20 @@
+## Gradle
 .gradle
+build/
+gradle-app.setting
+
+## IntelliJ
+*.iml
+.idea/
+*.ipr
+*.iws
+/out/
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+
 /local.properties
-/.idea/workspace.xml
-/.idea/libraries
 .DS_Store
-/build
+
