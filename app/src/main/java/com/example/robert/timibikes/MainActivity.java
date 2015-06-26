@@ -54,8 +54,12 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_update:
+                new LoadMainActivity().execute();
+                break;
+            default:
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

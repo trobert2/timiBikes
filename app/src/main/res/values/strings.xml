@@ -3,5 +3,6 @@
 
     <string name="loading">Loading info....</string>
     <string name="action_settings">Settings</string>
+    <string name="action_update">Update</string>
     <string name="list_occupied_label">Occupied:</string>
 </resources>
