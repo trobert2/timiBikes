@@ -31,14 +31,14 @@ public class StationsAdapter  extends ArrayAdapter<Station> {
             TextView tvAddress = (TextView) convertView.findViewById(R.id.tvAddress);
             TextView tvEmptySpots = (TextView) convertView.findViewById(R.id.tvEmptySpots);
             TextView tvMaximumNumberOfBikes = (TextView) convertView.findViewById(R.id.tvMaximumNumberOfBikes);
-            TextView tvOcuppiedSpots = (TextView) convertView.findViewById(R.id.tvOcuppiedSpots);
+            TextView tvOcuppiedSpots = (TextView) convertView.findViewById(R.id.tvOccupiedSpots);
             TextView tvStatus = (TextView) convertView.findViewById(R.id.tvStatus);
             // Populate the data into the template view using the data object
             tvStationName.setText(station.StationName.replaceAll("^\"|\"$", ""));
             tvAddress.setText("Address: " + station.Address.replaceAll("^\"|\"$", ""));
             tvEmptySpots.setText("Empty: " + station.EmptySpots.replaceAll("^\"|\"$", ""));
             tvMaximumNumberOfBikes.setText("Max: " + station.MaximumNumberOfBikes.replaceAll("^\"|\"$", ""));
-            tvOcuppiedSpots.setText("Occupied: " + station.OcuppiedSpots.replaceAll("^\"|\"$", ""));
+            tvOcuppiedSpots.setText(station.OcuppiedSpots.replaceAll("^\"|\"$", ""));
             String status = station.Status.toLowerCase().replaceAll("^\"|\"$", "");
             tvStatus.setText(status);
 

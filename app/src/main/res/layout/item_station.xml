@@ -22,34 +22,43 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-         >
-    <TextView
-        android:id="@+id/tvOcuppiedSpots"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ocuppied     "
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/tvEmptySpots"
-        android:layout_toStartOf="@+id/tvEmptySpots"
-        android:layout_marginRight="28dp"
-        android:layout_marginEnd="28dp" />
-    <TextView
-        android:id="@+id/tvEmptySpots"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Empty     "
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-    <TextView
-        android:id="@+id/tvMaximumNumberOfBikes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="MaximumBikes"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/tvEmptySpots"
-        android:layout_toEndOf="@+id/tvEmptySpots"
-        android:layout_marginLeft="30dp"
-        android:layout_marginStart="30dp" />
+        >
+
+        <TextView
+            android:id="@+id/tvOccupiedLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/list_occupied_label"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/tvOccupiedSpots"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="28dp" />
+        <TextView
+            android:id="@+id/tvOccupiedSpots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/tvEmptySpots"
+            android:layout_marginRight="28dp"
+            android:layout_marginEnd="28dp" />
+        <TextView
+            android:id="@+id/tvEmptySpots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Empty     "
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+        <TextView
+            android:id="@+id/tvMaximumNumberOfBikes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MaximumBikes"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/tvEmptySpots"
+            android:layout_toEndOf="@+id/tvEmptySpots"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp" />
     </RelativeLayout>
 
 
