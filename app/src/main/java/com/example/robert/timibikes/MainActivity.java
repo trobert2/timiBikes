@@ -112,19 +112,13 @@ public class MainActivity extends ActionBarActivity {
                 JsonObject o = (JsonObject)parser.parse(response.toString());
 
                 for (JsonElement record:o.getAsJsonArray("Data")) {
-                    ((JsonObject) record).get("StationName");
-                    ((JsonObject) record).get("Address");
-                    ((JsonObject) record).get("OcuppiedSpots");
-                    ((JsonObject) record).get("EmptySpots");
-                    ((JsonObject) record).get("MaximumNumberOfBikes");
-                    ((JsonObject) record).get("Status");
 
                     Station station = new Station(((JsonObject) record).get("StationName").toString(),
                                                   ((JsonObject) record).get("Address").toString(),
                                                   ((JsonObject) record).get("OcuppiedSpots").toString(),
                                                   ((JsonObject) record).get("EmptySpots").toString(),
                                                   ((JsonObject) record).get("MaximumNumberOfBikes").toString(),
-                                                  ((JsonObject) record).get("Status").toString());
+                                                  ((JsonObject) record).get("StatusType").toString());
 
 
                     stations.add(station);

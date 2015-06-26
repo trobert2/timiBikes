@@ -39,13 +39,14 @@ public class StationsAdapter  extends ArrayAdapter<Station> {
             tvEmptySpots.setText("Empty: " + station.EmptySpots.replaceAll("^\"|\"$", ""));
             tvMaximumNumberOfBikes.setText("Max: " + station.MaximumNumberOfBikes.replaceAll("^\"|\"$", ""));
             tvOcuppiedSpots.setText("Occupied: " + station.OcuppiedSpots.replaceAll("^\"|\"$", ""));
-            tvStatus.setText(station.Status.replaceAll("^\"|\"$", ""));
-            if (station.Status.toLowerCase().replaceAll("^\"|\"$", "").equals("functionala")){
-                tvStatus.setTextColor(Color.GREEN);
-            } else {
-                tvStatus.setTextColor(Color.RED);
-            }
+            String status = station.Status.toLowerCase().replaceAll("^\"|\"$", "");
+            tvStatus.setText(status);
 
+            if (status.equals("offline")){
+                tvStatus.setTextColor(Color.RED);
+            } else if (status.equals("subpopulated")){
+                tvStatus.setTextColor(Color.GREEN);
+            }
 
             // Return the completed view to render on screen
             return convertView;
