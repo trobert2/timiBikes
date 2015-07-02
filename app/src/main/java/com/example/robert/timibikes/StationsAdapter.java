@@ -6,7 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
 
 import java.util.ArrayList;
 
@@ -29,16 +35,10 @@ public class StationsAdapter  extends ArrayAdapter<Station> {
             // Lookup view for data population
             TextView tvStationName = (TextView) convertView.findViewById(R.id.tvStationName);
             TextView tvAddress = (TextView) convertView.findViewById(R.id.tvAddress);
-            TextView tvEmptySpots = (TextView) convertView.findViewById(R.id.tvEmptySpots);
-            TextView tvMaximumNumberOfBikes = (TextView) convertView.findViewById(R.id.tvMaximumNumberOfBikes);
-            TextView tvOccupiedSpots = (TextView) convertView.findViewById(R.id.tvOccupiedSpots);
             TextView tvStatus = (TextView) convertView.findViewById(R.id.tvStatus);
             // Populate the data into the template view using the data object
             tvStationName.setText(station.StationName.replaceAll("^\"|\"$", ""));
             tvAddress.setText("Address: " + station.Address.replaceAll("^\"|\"$", ""));
-            tvEmptySpots.setText("Empty: " + station.EmptySpots.replaceAll("^\"|\"$", ""));
-            tvMaximumNumberOfBikes.setText("Max: " + station.MaximumNumberOfBikes.replaceAll("^\"|\"$", ""));
-            tvOccupiedSpots.setText(station.OccupiedSpots.replaceAll("^\"|\"$", ""));
             String status = station.Status.toLowerCase().replaceAll("^\"|\"$", "");
             tvStatus.setText(status);
 
@@ -47,8 +47,38 @@ public class StationsAdapter  extends ArrayAdapter<Station> {
             } else if (status.equals("subpopulated")){
                 tvStatus.setTextColor(Color.GREEN);
             }
+            PieChart chart = (PieChart) convertView.findViewById(R.id.chart_id);
 
-            // Return the completed view to render on screen
+            getStationChart(chart, station);
+
+
+//          Return the completed view to render on screen
             return convertView;
         }
+
+    private void getStationChart(PieChart chart, Station station){
+        PieDataSet pieDataSet;
+        PieData pieData;
+        ArrayList<Entry> entries = new ArrayList<Entry>();
+        ArrayList<String> labels = new ArrayList<String>();
+
+        chart.setDrawHoleEnabled(true);
+        chart.setHoleColorTransparent(true);
+        chart.setDescription("");
+        chart.setCenterText(String.format("%s / %s", station.EmptySpots, station.MaximumNumberOfBikes));
+
+        labels.add("Ocupat");
+        labels.add("Liber");
+
+        entries.add(new Entry(Float.parseFloat(station.OccupiedSpots), 0));
+        entries.add(new Entry(Float.parseFloat(station.EmptySpots), 1));
+
+        pieDataSet = new PieDataSet(entries, "# de biciclete");
+
+        pieDataSet.setColors(new int[] {Color.RED, Color.GREEN});
+
+        pieData = new PieData(labels, pieDataSet);
+        chart.setData(pieData);
+        chart.getLegend().setEnabled(false);
+    }
     }

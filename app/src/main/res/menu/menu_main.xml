@@ -13,7 +13,7 @@
         android:orderInCategory="10" app:showAsAction="always" />
     <item android:id="@+id/action_location_order"
         android:title="@string/action_update"
-        android:icon="@android:drawable/ic_btn_speak_now"
+        android:icon="@android:drawable/ic_dialog_map"
         android:orderInCategory="10" app:showAsAction="always" />
 
 </menu>

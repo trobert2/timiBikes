@@ -3,12 +3,20 @@ package com.example.robert.timibikes;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.StaticLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.DataSet;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -160,6 +168,7 @@ public class MainActivity extends ActionBarActivity {
 
             adapter.notifyDataSetChanged();
             Toast.makeText(MainActivity.this, "Updated", Toast.LENGTH_LONG).show();
+
         }
 
         private String getQuery(Map<String, String> map)  throws UnsupportedEncodingException
