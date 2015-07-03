@@ -1,23 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <TextView
-    android:id="@+id/tvStationName"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="StationName"
-    android:layout_gravity="center_horizontal"
-    style="@style/Base.TextAppearance.AppCompat.Title" />
-
-    <TextView
-    android:id="@+id/tvAddress"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Address"
-        style="@style/Base.TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
-        android:layout_gravity="center_horizontal" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -28,15 +12,39 @@
             android:id="@+id/chart_id"
             android:layout_width="94dp"
             android:layout_height="92dp" />
-
-
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <TextView
+    android:id="@+id/tvAddress"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Address"
+        style="@style/Base.TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
+        android:layout_below="@+id/tvStationName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+        <TextView
+        android:id="@+id/tvStationName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="StationName"
+        style="@style/Base.TextAppearance.AppCompat.Title"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/tvStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Status"
-        android:layout_gravity="center_horizontal" />
-
+        android:layout_gravity="center_vertical"
+        android:layout_below="@+id/tvAddress"
+        android:layout_alignLeft="@+id/tvAddress"
+        android:layout_alignStart="@+id/tvAddress" />
+    </RelativeLayout>
 </LinearLayout>
