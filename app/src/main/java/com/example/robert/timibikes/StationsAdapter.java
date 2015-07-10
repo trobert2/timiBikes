@@ -6,13 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
 
 import java.util.ArrayList;
 
@@ -48,37 +45,10 @@ public class StationsAdapter  extends ArrayAdapter<Station> {
                 tvStatus.setTextColor(Color.GREEN);
             }
             PieChart chart = (PieChart) convertView.findViewById(R.id.chart_id);
-
-            getStationChart(chart, station);
-
+            station.setChart(chart);
 
 //          Return the completed view to render on screen
             return convertView;
         }
 
-    private void getStationChart(PieChart chart, Station station){
-        PieDataSet pieDataSet;
-        PieData pieData;
-        ArrayList<Entry> entries = new ArrayList<Entry>();
-        ArrayList<String> labels = new ArrayList<String>();
-
-        chart.setDrawHoleEnabled(true);
-        chart.setHoleColorTransparent(true);
-        chart.setDescription("");
-        chart.setCenterText(String.format("%s / %s", station.EmptySpots, station.MaximumNumberOfBikes));
-
-        labels.add("Ocupat");
-        labels.add("Liber");
-
-        entries.add(new Entry(Float.parseFloat(station.OccupiedSpots), 0));
-        entries.add(new Entry(Float.parseFloat(station.EmptySpots), 1));
-
-        pieDataSet = new PieDataSet(entries, "# de biciclete");
-
-        pieDataSet.setColors(new int[] {Color.RED, Color.GREEN});
-
-        pieData = new PieData(labels, pieDataSet);
-        chart.setData(pieData);
-        chart.getLegend().setEnabled(false);
-    }
     }

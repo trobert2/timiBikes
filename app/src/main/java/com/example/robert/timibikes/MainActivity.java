@@ -1,5 +1,6 @@
 package com.example.robert.timibikes;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -80,14 +81,15 @@ public class MainActivity extends ActionBarActivity {
                 break;
             case R.id.action_alphabetical_order:
                 Collections.sort(stations, new StationAlphabeticalComparator());
-                adapter.notifyDataSetChanged();
+                adapter = new StationsAdapter(MainActivity.this, stations);
+                listView.setAdapter(adapter);
                 break;
             case R.id.action_location_order:
                 double myLatitude = gps.getLatitude();
                 double myLongitude = gps.getLongitude();
                 Collections.sort(stations, new StationLocationComparator(myLatitude, myLongitude));
-                adapter.notifyDataSetChanged();
-
+                adapter = new StationsAdapter(MainActivity.this, stations);
+                listView.setAdapter(adapter);
             default:
                 return true;
         }
@@ -193,5 +195,7 @@ public class MainActivity extends ActionBarActivity {
             //print here the result
             return result.toString();
         }
+
+
     }
 }
