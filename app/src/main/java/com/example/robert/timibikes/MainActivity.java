@@ -1,12 +1,16 @@
 package com.example.robert.timibikes;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.StaticLayout;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -57,6 +61,27 @@ public class MainActivity extends ActionBarActivity {
         gps = new GPSTracker(this);
 
         listView.setAdapter(adapter);
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()  {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Station station = stations.get(position);
+                Uri geoLocation = Uri.parse(String.format("http://maps.google.com/maps?daddr=%s,%s (%s)",
+                                            station.Latitude, station.Longitude, station.Address));
+
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(geoLocation);
+                intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+            return true;
+            }
+
+        });
+
+
         new LoadMainActivity().execute();
     }
 
